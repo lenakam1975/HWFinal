@@ -13,4 +13,4 @@ print_number(5)
 print_number(3)
 print_number(5)
 
-# 88005553535
+# 88005553535 параметризация функций
