@@ -8,5 +8,3 @@ def square(a):
 
 a = float(input('Введите число: '))
 print(f'Площадь квадрата - {square(a)}')
-
-

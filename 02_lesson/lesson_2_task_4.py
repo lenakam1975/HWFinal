@@ -18,6 +18,3 @@ def fizz_buzz(n):
              print(i)
 
 fizz_buzz(n)
-
-
-
