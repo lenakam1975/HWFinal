@@ -14,3 +14,4 @@ def is_year_leap (number):
 number = 1984
 result = is_year_leap(number)
 print(f"Год {number} - {result}")
+
