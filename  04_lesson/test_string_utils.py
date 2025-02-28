@@ -28,29 +28,23 @@ def test_trim_positive(input_str, expected):
 
 # 3. Возвращает `True`, если строка содержит искомый символ и `False` - если нет
 
-@pytest.mark.parametrize("string, symbol", [
-    ("SkyPro", "S"), ("SkyPro", "U"),
-    ("1234", "3"), ("1234", "5"),
-    ("Elena G", "Elena G"), ("Elena G", "Elena L")
+@pytest.mark.parametrize("string, symbol, expected", [
+    ("SkyPro", "S", True), ("SkyPro", "U", False),
+    ("1234", "3", True), ("1234", "5", False),
+    ("Elena G", "Elena G", True), ("Elena G", "Elena L", False)
 ])
-def test_contains_positive(string, symbol):
-    assert string_utils.contains("SkyPro", "S") == True
-    assert string_utils.contains("SkyPro", "U") == False
-    return symbol in string
+def test_contains_positive(string, symbol, expected):
+    assert string_utils.contains(string, symbol) == expected
 
 # 4. Удаляет все подстроки из переданной строки
 
-@pytest.mark.parametrize("string, symbol", [
-    ("SkyPro", "k"), ("SkyPro", "Pro"),
-    ("SkyPro125", "1"), ("SkyPro125", "Pro125"),
-    ("SkyPro school", "o"), ("SkyPro school", "school")
+@pytest.mark.parametrize("string, symbol, expected", [
+    ("SkyPro", "k", "SyPro"), ("SkyPro", "Pro", "Sky"),
+    ("SkyPro125", "1", "SkyPro25"), ("SkyPro125", "Pro125", "Sky"),
+    ("SkyPro school", "o", "SkyPr schl"), ("SkyPro school", "school", "SkyPro ")
 ])
-def test_delete_symbol_positive(string, symbol):
-    string = string
-    symbol = symbol
-    result = string.replace(symbol, "")
-    return result
-
+def test_delete_symbol_positive(string, symbol, expected):
+    assert string_utils.delete_symbol(string, symbol) == expected
 
 @pytest.mark.negative
 
@@ -74,23 +68,17 @@ def test_trim_negative(input_str, expected):
 
 # 3. Возвращает `True`, если строка содержит искомый символ и `False` - если нет
 
-@pytest.mark.parametrize("string, symbol", [
-    ("", ""), ("5", "6"),
-    ("    ", "    "), ("%$#", "&*^")
+@pytest.mark.parametrize("string, symbol, expected", [
+    ("", "", True), ("5", "6", False),
+    ("    ", "    ", True), ("%$#", "&*^", False)
 ])
-def test_contains_negative(string, symbol):
-    assert string_utils.contains("SkyPro", "S") == True
-    assert string_utils.contains("SkyPro", "U") == False
-    return symbol in string
+def test_contains_negative(string, symbol, expected):
+    assert string_utils.contains(string, symbol) == expected
 
 # 4. Удаляет все подстроки из переданной строки
 
-@pytest.mark.parametrize("string, symbol", [
-    ("SkyPro $%^", "k"), ("", "Pro"),
-    ("", ""), ("  ", "  ")
+@pytest.mark.parametrize("string, symbol, expected", [
+    ("SkyPro $%^", "k", "SyPro $%^"), ("", "", "")
 ])
-def test_delete_symbol_negative(string, symbol):
-    string = string
-    symbol = symbol
-    result = string.replace(symbol, "")
-    return result
+def test_delete_symbol_negative(string, symbol, expected):
+    assert string_utils.delete_symbol(string, symbol) == expected
