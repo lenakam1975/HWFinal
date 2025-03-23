@@ -7,9 +7,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+driver = webdriver.Chrome(
+    service=ChromeService(ChromeDriverManager().install())
+)
 
-#Кликните на синюю кнопку. Запустите скрипт три раза подряд. Убедитесь, что он отработает одинаково.
+# Кликните на синюю кнопку.
+# Запустите скрипт три раза подряд.
+# Убедитесь, что он отработает одинаково.
 
 driver.get("https://uitestingplayground.com/classattr")
 button = WebDriverWait(driver, 10).until(
@@ -17,5 +21,5 @@ button = WebDriverWait(driver, 10).until(
 )
 button.click()
 
-sleep(2)
 
+sleep(2)
