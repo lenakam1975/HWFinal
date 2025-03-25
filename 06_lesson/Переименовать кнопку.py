@@ -8,7 +8,7 @@ driver = webdriver.Chrome(
     service=ChromeService(ChromeDriverManager().install())
 )
 
-driver.implicitly_wait(10)
+driver.implicitly_wait(15)
 driver.get("http://uitestingplayground.com/textinput")
 
 # Укажите в поле ввода текст SkyPro.

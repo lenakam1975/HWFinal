@@ -8,7 +8,7 @@ driver = webdriver.Chrome(
     service=ChromeService(ChromeDriverManager().install())
 )
 
-driver.implicitly_wait(20)
+driver.implicitly_wait(25)
 driver.get("http://uitestingplayground.com/ajax")
 
 
