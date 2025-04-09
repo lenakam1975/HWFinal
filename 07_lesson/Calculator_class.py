@@ -1,6 +1,4 @@
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class Calculator:
@@ -21,12 +19,3 @@ class Calculator:
         click_button = self.driver.find_element(
             By.XPATH, f"//div[@class='keys']/span[text()='{button}']")
         click_button.click()
-
-    def set_result(self, driver):
-        locator = (By.XPATH, "//div[@class='screen' and text()='15']")
-        WebDriverWait(driver, 45).until(
-            EC.presence_of_element_located(locator))
-        result = driver.find_element(By.CSS_SELECTOR, ".screen").text
-        assert result == "15", f"Ожидалось '15', получено '{result}'"
-
-        driver.quit()

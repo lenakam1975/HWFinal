@@ -1,6 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 from Calculator_class import Calculator
 from Shop_class import Authorization
@@ -18,7 +21,14 @@ def test_calculator():
     calculator.click_button('+')
     calculator.click_button('8')
     calculator.click_button('=')
-    calculator.set_result(driver)
+
+    result = WebDriverWait(driver, 45).until(
+        EC.presence_of_element_located((
+            By.XPATH, "//div[@class='screen' and text()='15']")))
+    assert result.text == "15", f"Ожидалось '15', получено '{result.text}'"
+    print(result.text)
+
+    driver.quit()
 
 
 def test_shop():
@@ -48,4 +58,14 @@ def test_shop():
     shop.input_field('last-name', "G")
     shop.input_field('postal-code', "123456")
     shop.input_field('continue', "")
-    shop.result()
+
+    # Ожидаемый результат
+    result = WebDriverWait(driver, 10).until(
+        EC.visibility_of_element_located((
+            By.CLASS_NAME, 'summary_total_label'))
+    )
+    print(result.text)
+    assert result.text == "Total: $58.29", \
+        f"Ожидаемая итоговая сумма: $58.29, полученная сумма: {result.text}"
+
+    driver.quit()

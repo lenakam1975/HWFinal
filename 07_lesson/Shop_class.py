@@ -1,6 +1,4 @@
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class Authorization:
@@ -14,8 +12,7 @@ class Authorization:
     def set_delay(self, id, text):
         delay_input = self.driver.find_element(By.ID, f"{id}")
         delay_input.send_keys(f"{text}")
-        button = self.driver.find_element(By.ID, f"{id}")
-        button.click()
+        delay_input.click()
 
 
 class MainPage:
@@ -58,11 +55,3 @@ class FormPage:
         input_field.send_keys(f'{text}')
         button_continue = self.driver.find_element(By.ID, f"{id}")
         button_continue.click()
-
-    def result(self):
-        results = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((
-                By.CLASS_NAME, 'summary_total_label')))
-        print(results.text)
-        assert results.text == "Total: $58.29", \
-            f"Ожидаемая итоговая сумма: $58.29, полученная сумма: {results}"
