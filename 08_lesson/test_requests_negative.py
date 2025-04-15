@@ -7,17 +7,17 @@ headers = {'Authorization': f'Bearer {token}',
 
 
 # Создание проекта (post) - не передан headers with token.negative
-def test_create_project():
+def test_create_project_without_token():
     project = {
         "title": "{{$randomCurrencyName}}"
     }
     resp = requests.post(base_url + 'projects', json=project)
-    assert resp.status_code == 201
+    assert resp.status_code == 401
     print(resp.text)
 
 
 # Изменить проект (put) - неверный id.negative
-def test_change_project():
+def test_change_project_invalid_id():
     project = {
         "title": "{HW-6}"
     }
@@ -25,13 +25,13 @@ def test_change_project():
     resp = requests.put(
         base_url + 'projects/' + project_id,
         json=project, headers=headers)
-    assert resp.status_code == 200
+    assert resp.status_code == 401
     print(resp.text)
 
 
 # Получить проект по ID (get)- неверный url.negative
-def test_add_id_project():
+def test_add_id_project_invalid_url():
     project_id = "6607d090-b020-4a68-830c-40e5b875a854"
     resp = requests.get(base_url + 'project' + project_id, headers=headers)
-    assert resp.status_code == 200
+    assert resp.status_code == 401
     print(resp.text)
